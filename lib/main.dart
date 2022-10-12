@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testflutter/screen/home_page.dart';
 import 'package:testflutter/screen/login_page.dart';
+import 'package:testflutter/widgets/theams.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,12 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       themeMode:ThemeMode.light ,
-      theme:ThemeData(primaryColor: Colors.black) ,
-      darkTheme: ThemeData(
-       brightness: Brightness.dark
-      ),
+      theme:MyTheme.lightTheam(context),
+      darkTheme:MyTheme.darkTheam(context),
       home: const MyHomePage(),
-      initialRoute: "/login",
+      initialRoute: "/home",
       routes: {
         "/home":(context)=>const MyHomePage(),
         "/login":(context)=>LoginPage(),
