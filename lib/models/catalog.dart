@@ -14,18 +14,31 @@ class Item{
     this.color,
     this.image,
 });
+factory Item.fromMap(Map<String,dynamic>map){
+  return Item(
+    id:map["id"],
+    name:map["name"],
+    desc:map["desc"],
+    price:map["price"],
+    color:map["color"],
+    image:map["image"],
+  );
+  }
+  toMap()=>{
+    "id":id,
+    "name":name,
+    "desc":desc,
+    "price":price,
+    "color":color,
+    "image":image,
+  };
 
 }
 class CatalogModel{
 
-  static final items=[
+  static var items=[
     Item(
-        id:1,
-        name:"iphone 14 pro",
-        desc: "Apple iphone 14th generation",
-        price: 999,
-        color: "#33505a",
-        image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MPU73?wid=572&hei=572&fmt=jpeg&qlt=95&.v=1660950870938"
+
     )
   ];
 
