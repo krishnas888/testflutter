@@ -2,11 +2,11 @@
     "products": [
         {
             "id": 1,
-            "name": "iPhone 12 Pro",
+            "name": "iPhone 14 Pro max",
             "desc": "Apple iPhone 12th generation",
             "price": 999,
             "color": "#33505a",
-            "image": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-blue-hero?wid=940&hei=1112&fmt=png-alpha&qlt=80&.v=1604021661000"
+            "image": "https://www.reliancedigital.in/medias/Apple-iPhone-14-Pro-Max-Mobile-Phone-493177798-i-1-1200Wx1200H?context=bWFzdGVyfGltYWdlc3w3MTU5MnxpbWFnZS9qcGVnfGltYWdlcy9oMTgvaGFmLzk4OTA3MjgwNTA3MTguanBnfDY4ZjM0NTNiNTAxM2FmNWYzYzY1YWUwNzkyZTVkYTFjN2ZkNDBiZTAzMmI2OTFkOTE3MmFmNWM3ODlmOGQxODU"
         },
         {
             "id": 2,

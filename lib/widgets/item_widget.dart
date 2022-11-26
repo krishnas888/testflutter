@@ -1,16 +1,87 @@
 import 'package:flutter/material.dart';
-
+import 'package:testflutter/screen/item_detail_page.dart';
+import 'package:testflutter/widgets/theams.dart';
+import 'package:velocity_x/velocity_x.dart';
 import '../models/catalog.dart';
 
-class ItemWidget extends StatelessWidget {
-  final Item? item;
+class CatalogList extends StatelessWidget {
+  const CatalogList({Key? key}) : super(key: key);
 
-  const ItemWidget({Key? key, this.item})
-      : assert(item != null),
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: CatalogModel.items.length,
+      itemBuilder: (context, index) {
+        final catalog = CatalogModel.items[index];
+        return InkWell(
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ItemDetailPage(catalog: catalog))),
+          child: ItemWidget(
+            catalog: catalog,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class ItemWidget extends StatelessWidget {
+  final Item? catalog;
+
+  const ItemWidget({Key? key, this.catalog})
+      : assert(catalog != null),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return VxBox(
+      child: Row(
+        children: [
+          Hero(tag:Key(catalog!.id.toString()),child: CatalogImage(image: "${catalog?.image}")),
+          Expanded(
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  "${catalog?.name}"
+                      .text
+                      .lg
+                      .color(MyTheme.purpleDarkLight)
+                      .bold
+                      .make(),
+                  "${catalog?.desc}"
+                      .text
+                      .textStyle(context.captionStyle)
+                      .make(),
+                  10.heightBox,
+                  ButtonBar(
+                    alignment: MainAxisAlignment.spaceBetween,
+                    buttonPadding: Vx.mH8,
+                    children: [
+                      "\$ ${catalog?.price}".text.bold.base.make(),
+                      TextButton(
+                        onPressed: () {},
+                        child: "Add to Cart".text.white.bold.xs.make(),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(MyTheme.pink),
+                        ),
+                      )
+                    ],
+                  ).pOnly(right: 8)
+                ],
+              ),
+            ),
+          ),
+          8.heightBox,
+        ],
+      ),
+    ).gray100.rounded.square(150).make().py16();
 /*    return Card(
       child: ListTile(
         leading: Image.network("${item!.image}"),
@@ -20,7 +91,7 @@ class ItemWidget extends StatelessWidget {
         ),
       ),
     );*/
-  return Card(
+    /* return Card(
     clipBehavior: Clip.antiAlias,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(15),
@@ -30,7 +101,7 @@ class ItemWidget extends StatelessWidget {
       children: [
         Container(
           margin: EdgeInsets.fromLTRB(16,16,8,16),
-          child: Image.network("${item!.image}"),
+          child: Image.network("${catalog!.image}"),
           height: 120,
           width: 130,
           decoration: BoxDecoration(
@@ -41,13 +112,13 @@ class ItemWidget extends StatelessWidget {
         Expanded(child: Center(
           child: Column(
             children: [
-              Text("${item!.name}",style: const TextStyle(
+              Text("${catalog!.name}",style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.black
               ),),
               SizedBox(height: 4,),
-              Text("${item!.desc}",style: const TextStyle(
+              Text("${catalog!.desc}",style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.normal,
                   color: Colors.black45
@@ -58,7 +129,7 @@ class ItemWidget extends StatelessWidget {
               ButtonBar(
                 alignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("\$ ${item!.price}",style: const TextStyle(
+                  Text("\$ ${catalog!.price}",style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.black
@@ -85,6 +156,26 @@ class ItemWidget extends StatelessWidget {
         )
       ],
     ),
-  );
+  );*/
+  }
+}
+
+class CatalogImage extends StatelessWidget {
+  final String image;
+
+  const CatalogImage({Key? key, required this.image})
+      : assert(image != null),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(image)
+        .box
+        .rounded
+        .p8
+        .color(MyTheme.background)
+        .make()
+        .p12()
+        .w40(context);
   }
 }

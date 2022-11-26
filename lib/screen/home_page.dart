@@ -1,10 +1,10 @@
 import 'dart:convert';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:testflutter/models/catalog.dart';
-
-import '../widgets/drawer.dart';
+import 'package:testflutter/widgets/theams.dart';
+import 'package:velocity_x/velocity_x.dart';
 import '../widgets/item_widget.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      /* child: Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
           title: Center(
@@ -49,8 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
         drawer: MyDrawer(),
         body: Padding(
           padding: const EdgeInsets.all(16),
-          child: (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
-              ?
+          child: (CatalogModel.items == null && CatalogModel.items.isEmpty)
+              ? const Center(
+            child: CircularProgressIndicator(),
+          ):
                 ListView.builder(
             itemCount: CatalogModel.items.length,
             itemBuilder: (context, index) {
@@ -59,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
           )
-              /*GridView.builder(
+              */ /*GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 16,
@@ -80,12 +82,53 @@ class _MyHomePageState extends State<MyHomePage> {
                         footer: Center(child: Text("\$ ${item[index].price}")),
                       ),
                     );
-                  })*/
-              : const Center(
-                  child: CircularProgressIndicator(),
-                ),
+                  })*/ /*
+
+        ),
+      ),*/
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: MyTheme.background,
+          floatingActionButton: FloatingActionButton(
+            onPressed: (){
+              Navigator.pushNamed(context, "/cart");
+            },
+            backgroundColor: MyTheme.greenLight,
+            child: Icon(CupertinoIcons.cart,color: MyTheme.pink,),
+          ),
+          body: Container(
+            padding: Vx.m32,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const CatalogHeader(),
+                10.heightBox,
+                if (CatalogModel.items ==null )
+                  const CircularProgressIndicator().centered().expand()
+                else
+                  const CatalogList().expand()
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
+
+class CatalogHeader extends StatelessWidget {
+  const CatalogHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        "Catalog App".text.xl5.bold.color(MyTheme.purpleDarkLight).make(),
+        "Trending product".text.xl2.semiBold.color(MyTheme.purpleLight).make(),
+      ],
+    );
+  }
+}
+
+
