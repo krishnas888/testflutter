@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import '../models/catalog.dart';
-import '../widgets/theams.dart';
+import '../widgets/addtocart_button.dart';
 
 class ItemDetailPage extends StatefulWidget {
   final Item? catalog;
@@ -22,9 +22,19 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     return SafeArea(
       bottom: false,
       child: Scaffold(
-        appBar: AppBar(),
-        backgroundColor: MyTheme.background,
-
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          centerTitle: true,
+            leading: IconButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              icon:const Icon(Icons.arrow_back_ios),
+              //replace with our own icon data.
+            )
+        ),
+        backgroundColor: context.canvasColor,
         body: Column(
           children: [
             Hero(
@@ -39,14 +49,14 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 arcType: VxArcType.CONVEY,
                 edge: VxEdge.TOP,
                 child: Container(
-                  color: Colors.white,
+                  color: context.cardColor,
                   width: context.screenWidth,
                   child: Column(
                     children: [
                       "${widget.catalog?.name}"
                           .text
                           .xl4
-                          .color(MyTheme.purpleDarkLight)
+                          .color(context.accentColor)
                           .bold
                           .make(),
                       "${widget.catalog?.desc}"
@@ -89,7 +99,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           ],
         ),
         bottomNavigationBar: Container(
-          color: Colors.white,
+          color: context.cardColor,
           child: ButtonBar(
             alignment: MainAxisAlignment.spaceBetween,
             buttonPadding: Vx.mH8,
@@ -98,15 +108,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   .text
                   .bold
                   .xl4
-                  .color(MyTheme.purpleDarkLight)
+                  .color(context.theme.secondaryHeaderColor)
                   .make(),
-              TextButton(
-                onPressed: () {},
-                child: "Add to Cart".text.white.bold.lg.make(),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(MyTheme.pink),
-                ),
-              ).wh(120, 50)
+              AddToCart(catalog: widget.catalog,).wh(120, 50)
             ],
           ).p16(),
         ),
@@ -114,3 +118,5 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
     );
   }
 }
+
+

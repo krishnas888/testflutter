@@ -36,10 +36,14 @@ factory Item.fromMap(Map<String,dynamic>map){
 }
 class CatalogModel{
 
-  static var items=[
-    Item(
+/*  static final catModel=CatalogModel._internal();
+  CatalogModel._internal();
+  factory CatalogModel()=> catModel;*/
 
-    )
-  ];
-
+  static List<Item>? items;
+  //Get by ID
+  // ignore: null_closures
+  Item getById(int id)=>items!.firstWhere((element) => element.id==id,orElse: null);
+  //Get by position
+  Item getByPosition(int pos)=>items![pos];
 }

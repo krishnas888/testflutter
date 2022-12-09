@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
        setState(() {
          changeButton = true;
        });
-       await Future.delayed(Duration(seconds: 1));
+       await Future.delayed(const Duration(seconds: 1));
        await Navigator.pushNamed(context, "/home");
        setState(() {
          changeButton = false;
@@ -38,17 +38,17 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     Image.asset("assets/images/login.png", fit: BoxFit.cover),
-                    SizedBox(
+                    const SizedBox(
                       height: 24,
                     ),
-                    Text(
+                    const Text(
                       "Welcome to LogIn",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Padding(
@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                           InkWell(
                             onTap: ()=> moveToHome(context),
                             child: AnimatedContainer(
-                              duration: Duration(seconds: 1),
+                              duration: const Duration(seconds: 1),
                               height: 50,
                               width:  changeButton?50:200,
                               alignment: Alignment.center,
@@ -138,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                                         offset: const Offset(4, 4)),
                                   ],),
 
-                              child: changeButton ? Icon(Icons.done,color: Colors.white,): Text(
+                              child: changeButton ? const Icon(Icons.done,color: Colors.white,): const Text(
                                 "Login",
                                 style: TextStyle(
                                     color: Colors.white,

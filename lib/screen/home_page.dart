@@ -3,9 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:testflutter/models/catalog.dart';
-import 'package:testflutter/widgets/theams.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../widgets/item_widget.dart';
+import '../widgets/item_list_widget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -88,13 +87,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ),*/
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: MyTheme.background,
+          backgroundColor: context.canvasColor,
           floatingActionButton: FloatingActionButton(
             onPressed: (){
               Navigator.pushNamed(context, "/cart");
             },
-            backgroundColor: MyTheme.greenLight,
-            child: Icon(CupertinoIcons.cart,color: MyTheme.pink,),
+            // ignore: deprecated_member_use
+            backgroundColor: context.theme.buttonColor,
+            child: const Icon(CupertinoIcons.cart,),
           ),
           body: Container(
             padding: Vx.m32,
@@ -124,8 +124,9 @@ class CatalogHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        "Catalog App".text.xl5.bold.color(MyTheme.purpleDarkLight).make(),
-        "Trending product".text.xl2.semiBold.color(MyTheme.purpleLight).make(),
+        "Catalog App".text.xl5.bold.color(context.theme.secondaryHeaderColor).make(),
+        10.heightBox,
+        "Trending product".text.xl2.semiBold.color(context.theme.primaryColorLight).make(),
       ],
     );
   }

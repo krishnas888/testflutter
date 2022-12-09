@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:testflutter/screen/item_detail_page.dart';
-import 'package:testflutter/widgets/theams.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../models/catalog.dart';
+import 'addtocart_button.dart';
 
 class CatalogList extends StatelessWidget {
   const CatalogList({Key? key}) : super(key: key);
@@ -11,9 +11,9 @@ class CatalogList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: CatalogModel.items.length,
+      itemCount: CatalogModel.items?.length,
       itemBuilder: (context, index) {
-        final catalog = CatalogModel.items[index];
+        final catalog = CatalogModel.items![index];
         return InkWell(
           onTap: () => Navigator.push(
               context,
@@ -51,7 +51,7 @@ class ItemWidget extends StatelessWidget {
                   "${catalog?.name}"
                       .text
                       .lg
-                      .color(MyTheme.purpleDarkLight)
+                      .color(context.accentColor)
                       .bold
                       .make(),
                   "${catalog?.desc}"
@@ -61,27 +61,19 @@ class ItemWidget extends StatelessWidget {
                   10.heightBox,
                   ButtonBar(
                     alignment: MainAxisAlignment.spaceBetween,
-                    buttonPadding: Vx.mH8,
+                    buttonPadding: EdgeInsets.zero,
                     children: [
-                      "\$ ${catalog?.price}".text.bold.base.make(),
-                      TextButton(
-                        onPressed: () {},
-                        child: "Add to Cart".text.white.bold.xs.make(),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(MyTheme.pink),
-                        ),
-                      )
+                      "\$ ${catalog?.price}".text.bold.xl.make(),
+                      AddToCart( catalog: catalog,)
                     ],
                   ).pOnly(right: 8)
                 ],
               ),
             ),
           ),
-          8.heightBox,
         ],
       ),
-    ).gray100.rounded.square(150).make().py16();
+    ).color(context.cardColor).rounded.square(150).make().py16();
 /*    return Card(
       child: ListTile(
         leading: Image.network("${item!.image}"),
@@ -164,6 +156,7 @@ class CatalogImage extends StatelessWidget {
   final String image;
 
   const CatalogImage({Key? key, required this.image})
+      // ignore: unnecessary_null_comparison
       : assert(image != null),
         super(key: key);
 
@@ -173,7 +166,7 @@ class CatalogImage extends StatelessWidget {
         .box
         .rounded
         .p8
-        .color(MyTheme.background)
+        .color(context.canvasColor)
         .make()
         .p12()
         .w40(context);
